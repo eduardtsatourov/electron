@@ -1,0 +1,6 @@
+<h3>Edit client</h3>
+<jworks-client-form
+  (formSubmit)="onFormSubmit($event)"
+  (deleteClient)="onDeleteClient($event)"
+  [selectedClient]="selectedClient$ | async"
+></jworks-client-form>
