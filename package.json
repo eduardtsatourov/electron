@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "ng build --base-href ./ && electron .",
-    "make" : "electron-forge make"
+    "make": "electron-forge make"
   },
   "private": true,
   "dependencies": {
