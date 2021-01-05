@@ -10,8 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start": "electron .",
-    "electron-build": "electron-packager . --overwrite"
+    "start": "ng build --base-href ./ && electron .",
+    "electron-build": "ng build --base-href ./ && electron-packager . --overwrite"
   },
   "private": true,
   "dependencies": {
