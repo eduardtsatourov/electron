@@ -5,13 +5,15 @@
   "author": "Ordina",
   "description": "BaseApp With Electron",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start": "ng build --base-href ./ && electron .",
-    "make" : "electron-forge make"
+    "make": "electron-forge make",
+    "electron:build": "npm run build && electron-builder build"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +42,7 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "electron": "^11.1.1",
+    "electron-builder": "^22.9.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "json-server": "^0.16.1",
