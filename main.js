@@ -17,7 +17,7 @@ function createWindow () {
   mainWindow.loadURL(
     isDev
       ? "http://localhost:4200"
-      : `file://${path.join(__dirname, "dist/index.html")}`
+      : `file://${path.join(__dirname, "dist/jworks-demo-app/index.html")}`
   );
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
