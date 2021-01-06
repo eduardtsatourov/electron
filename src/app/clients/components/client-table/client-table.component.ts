@@ -36,6 +36,8 @@ export class ClientTableComponent implements AfterViewInit, OnInit {
   @Output() edit = new EventEmitter<ClientTableItem>();
   @Output() delete = new EventEmitter<ClientTableItem>();
 
+  @Input() readOnly = false;
+
   private _data: Client[] = [];
   @Input() set data(newData: Client[]) {
     this._data = newData || [];

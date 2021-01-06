@@ -1,15 +1,27 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { Product } from '../../domain/product';
-import { ProductTableDataSource, ProductTableItem } from './product-table-datasource';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTable } from "@angular/material/table";
+import { Product } from "../../domain/product";
+import {
+  ProductTableDataSource,
+  ProductTableItem,
+} from "./product-table-datasource";
 
 @Component({
-  selector: 'jworks-product-table',
-  templateUrl: './product-table.component.html',
-  styleUrls: ['./product-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "jworks-product-table",
+  templateUrl: "./product-table.component.html",
+  styleUrls: ["./product-table.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -18,11 +30,13 @@ export class ProductTableComponent implements AfterViewInit, OnInit {
   dataSource: ProductTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'productcode', 'actions'];
+  displayedColumns = ["id", "name", "productcode", "actions"];
 
   @Output() productSelect = new EventEmitter<ProductTableItem>();
   @Output() edit = new EventEmitter<ProductTableItem>();
   @Output() delete = new EventEmitter<ProductTableItem>();
+
+  @Input() readOnly = false;
 
   private _data: Product[] = [];
   @Input() set data(newData: Product[]) {
@@ -31,7 +45,9 @@ export class ProductTableComponent implements AfterViewInit, OnInit {
       this.dataSource.data = this._data;
     }
   }
-  get data() { return this._data; }
+  get data() {
+    return this._data;
+  }
 
   ngOnInit() {
     this.dataSource = new ProductTableDataSource();

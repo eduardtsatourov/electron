@@ -11,17 +11,15 @@ ul {
 
     a {
       text-decoration: none;
-      color: var(--primary);
+      color: var(--accent);
 
       &:hover {
-        color: var(--primary-light);
+        color: var(--primary);
       }
 
       &.active {
-        color: var(--accent);
+        color: var(--primary);
       }
     }
   }
 }
-
-

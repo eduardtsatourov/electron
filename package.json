@@ -6,12 +6,16 @@
   "description": "BaseApp With Electron",
   "scripts": {
     "ng": "ng",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start": "ng build --base-href ./ && electron .",
-    "electron-build": "ng build --base-href ./ && electron-packager . --overwrite"
+    "start:electron": "electron .",
+    "start:prod": "ng build --base-href ./ && electron .",
+    "electron:build": "ng build --base-href ./ && electron-packager . --overwrite",
+    "dev": "concurrently -k \"set BROWSER=none npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:4200 && electron ."
   },
   "private": true,
   "dependencies": {
@@ -40,7 +44,10 @@
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "electron": "^11.1.1",
+    "electron-is-dev": "^1.2.0",
     "electron-packager": "^15.2.0",
+    "electron-reload": "^1.5.0",
+    "electron-reloader": "^1.1.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "json-server": "^0.16.1",
@@ -52,6 +59,8 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "concurrently": "^5.3.0",
+    "wait-on": "^5.2.1"
   }
 }

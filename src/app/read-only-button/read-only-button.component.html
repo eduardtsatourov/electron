@@ -1,0 +1,6 @@
+<button mat-icon-button aria-label="Read only button" (click)="toggle()">
+  <mat-icon *ngIf="readOnly$ | async; else unlocked">lock</mat-icon>
+  <ng-template #unlocked>
+    <mat-icon>lock_open</mat-icon>
+  </ng-template>
+</button>

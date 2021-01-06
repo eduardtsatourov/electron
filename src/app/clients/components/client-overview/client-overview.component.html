@@ -1,8 +1,16 @@
 <h3>
   Client overview
-  <button mat-mini-fab color="primary" (click)="onAdd()">+</button>
+  <button
+    mat-mini-fab
+    color="primary"
+    [disabled]="readOnly$ | async"
+    (click)="onAdd()"
+  >
+    +
+  </button>
 </h3>
 <jworks-client-table
+  [readOnly]="readOnly$ | async"
   [data]="clients$ | async"
   (clientSelect)="onClientSelect($event)"
   (delete)="onDelete($event)"

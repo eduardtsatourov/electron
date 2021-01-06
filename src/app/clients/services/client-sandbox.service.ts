@@ -1,26 +1,35 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Client } from '../domain/client';
-import { ClientService } from './client.service';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, combineLatest } from "rxjs";
+import { map } from "rxjs/operators";
+import { ReadOnlyStateService } from "src/app/shared/read-only-state.service";
+import { Client } from "../domain/client";
+import { ClientService } from "./client.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ClientSandboxService {
+  readOnly$ = this.readOnlyStateService.readOnly$;
 
   private clientsSubject = new BehaviorSubject<Client[]>([]);
-  get clients$() { return this.clientsSubject.asObservable(); }
+  get clients$() {
+    return this.clientsSubject.asObservable();
+  }
   loaded = false;
 
   private selectedClientSubject = new BehaviorSubject<number>(null);
   get selectedClient$() {
     return combineLatest([this.selectedClientSubject, this.clients$]).pipe(
-      map(([clientId, clients]) => clients.find(client => client.id === clientId))
+      map(([clientId, clients]) =>
+        clients.find((client) => client.id === clientId)
+      )
     );
   }
 
-  constructor(private clientService: ClientService) { }
+  constructor(
+    private clientService: ClientService,
+    private readOnlyStateService: ReadOnlyStateService
+  ) {}
 
   selectClient(clientId: number) {
     this.selectedClientSubject.next(clientId);
@@ -31,34 +40,55 @@ export class ClientSandboxService {
       return;
     }
     this.clientService.getClients().subscribe({
-      next: clients => {
+      next: (clients) => {
         this.clientsSubject.next(clients);
         this.loaded = true;
-      }
+      },
     });
   }
 
   addClient(client: Client) {
-    this.clientService.createClient(client).subscribe(newClient => {
-      this.clientsSubject.next(this.clientsSubject.getValue().concat(newClient));
-    }, error => {
-      alert(error);
-    });
+    this.clientService.createClient(client).subscribe(
+      (newClient) => {
+        this.clientsSubject.next(
+          this.clientsSubject.getValue().concat(newClient)
+        );
+      },
+      (error) => {
+        alert(error);
+      }
+    );
   }
 
   updateClient(client: Client) {
-    this.clientService.updateClient(client).subscribe(newClient => {
-      this.clientsSubject.next(this.clientsSubject.getValue().map(oldClient => oldClient.id === client.id ? newClient : oldClient));
-    }, error => {
-      alert(error);
-    });
+    this.clientService.updateClient(client).subscribe(
+      (newClient) => {
+        this.clientsSubject.next(
+          this.clientsSubject
+            .getValue()
+            .map((oldClient) =>
+              oldClient.id === client.id ? newClient : oldClient
+            )
+        );
+      },
+      (error) => {
+        alert(error);
+      }
+    );
   }
 
   deleteClient(clientId: number) {
-      this.clientService.deleteClient(clientId).subscribe(_ => {
-        this.clientsSubject.next(this.clientsSubject.getValue().filter(client => client.id !== clientId));
-      }, error => {
+    this.clientService.deleteClient(clientId).subscribe(
+      (_) => {
+        this.clientsSubject.next(
+          this.clientsSubject
+            .getValue()
+            .filter((client) => client.id !== clientId)
+        );
+      },
+      (error) => {
         alert(error);
-      });
+      }
+    );
   }
 }

@@ -10,13 +10,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ReadOnlyButtonComponent } from './read-only-button/read-only-button.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ReadOnlyButtonComponent
   ],
   imports: [
     BrowserModule,

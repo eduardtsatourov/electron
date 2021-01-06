@@ -16,7 +16,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let row">
-        <button mat-button [matMenuTriggerFor]="menu">Actions</button>
+        <button mat-button [matMenuTriggerFor]="menu" [disabled]="readOnly">
+          Actions
+        </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="clientSelect.emit(row)">
             <span>Details</span>
