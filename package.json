@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
-    "electron:build": "npm run build && electron-packager . --overwrite --prune --platform win32 --arch x64 --out ./out",
+    "electron:build": "npm run build && electron-packager . --overwrite --prune --platform darwin --arch x64 --out ./out",
     "electron:builddev": "ng build --base-href ./ && electron-packager . --overwrite",
     "electron": "wait-on tcp:4200 && electron .",
     "package:win" : "electronwin.bat",
