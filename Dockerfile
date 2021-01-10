@@ -1,16 +1,27 @@
 FROM node
 
+WORKDIR /usr/app
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 wine64 -y
+RUN npm install
+COPY ./ ./
 
-RUN npm install electron-packager -g
+CMD [ "npm", "run", "electron:build" ]
 
-VOLUME /root/.electron
+# FROM node
 
-# make more efficient by copying only needed files
-COPY . /electron
-VOLUME /electron
-WORKDIR /electron
+# RUN dpkg --add-architecture i386 && apt-get update && apt-get install wine wine32 wine64 -y
 
-CMD [""]
+# RUN npm install electron-packager -g
 
-ENTRYPOINT ["electron-packager"]
+# VOLUME /root/.electron
+
+# # make more efficient by copying only needed files
+# COPY . /electron
+# VOLUME /electron
+# WORKDIR /electron
+
+# CMD [""]
+
+# ENTRYPOINT ["electron-packager"]
