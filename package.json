@@ -16,7 +16,7 @@
     "electron:build": "npm run build && electron-packager . --overwrite --platform=win32 --out ./out",
     "electron:builddev": "ng build --base-href ./ && electron-packager . --overwrite",
     "electron": "wait-on tcp:4200 && electron .",
-    "package" : "electron"
+    "package" : "electronbuild"
   },
   "private": true,
   "dependencies": {
